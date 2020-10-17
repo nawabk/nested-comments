@@ -261,3 +261,29 @@ body {
 .topbar__link:hover {
   cursor: pointer;
 }
+
+.notificationbox {
+  min-height: 5rem;
+  width: 20rem;
+  padding: 1.5rem;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  animation: moveLeft 0.5s ease-in;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+}
+.notificationbox__message {
+  font-size: 1.25rem;
+}
+
+@keyframes moveLeft {
+  0% {
+    transform: translateX(-6rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(1);
+    opacity: 1;
+  }
+}

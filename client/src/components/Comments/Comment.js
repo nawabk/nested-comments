@@ -181,7 +181,7 @@ const Replies = ({ commentId, loggedInUser, depth, replies, setReplies }) => {
     };
 
     if (commentId) fetchAllReplies();
-  }, [commentId]);
+  }, [commentId, setReplies]);
   return (
     <ul className='comments__list'>
       {!loading ? (

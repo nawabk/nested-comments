@@ -1,17 +1,49 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const Signup = ({ setAlert }) => {
+import { BASE_URL } from '../../utils/shared';
+import { AUTH_SUCCESS, AUTH_ERROR } from '../../utils/actionTypes';
+
+const Signup = ({ setAlert, dispatch }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
-  const formSubmitHandler = e => {
+  const formSubmitHandler = async e => {
     e.preventDefault();
     if (password !== passwordConfirm) {
       return setAlert({
         message: 'Password confirm does not match with the password',
         type: 'error'
+      });
+    }
+    try {
+      const body = {
+        name,
+        email,
+        password,
+        passwordConfirm
+      };
+      const res = await axios.post(`${BASE_URL}/users/signup`, body);
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      dispatch({
+        type: AUTH_SUCCESS,
+        payload: {
+          token: res.data.token,
+          user: res.data.user
+        }
+      });
+    } catch (err) {
+      setAlert({
+        message:
+          'There is some problem while creating your account...please try again later',
+        type: 'error'
+      });
+      dispatch({
+        type: AUTH_ERROR,
+        payload: err.response
       });
     }
   };
@@ -40,7 +72,7 @@ const Signup = ({ setAlert }) => {
           className='form__control'
           id='email'
           required
-          onChange={e => setEmail(e.target.vaue)}
+          onChange={e => setEmail(e.target.value)}
         />
       </div>
       <div className='form__group'>
@@ -60,7 +92,7 @@ const Signup = ({ setAlert }) => {
           Password Confirm
         </label>
         <input
-          type='passwordConfirm'
+          type='password'
           className='form__control'
           id='passwordConfirm'
           required

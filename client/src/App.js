@@ -45,6 +45,8 @@ const reducer = (state, action) => {
         isAuthenticated: false,
         error: action.payload
       };
+    default:
+      return state;
   }
 };
 
