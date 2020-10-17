@@ -2,6 +2,8 @@
 
 ## How to run in locals
 
+The app is about nested comments like **Hacker News** means a user can comment and comment can have many replies and it can go to any number of nesting.The app is built on **MERN** stack.
+
 1. git clone https://github.com/nawabk/nested-comments.git
 2. open the project in any editor
 3. open command prompt to the path of cloned project
